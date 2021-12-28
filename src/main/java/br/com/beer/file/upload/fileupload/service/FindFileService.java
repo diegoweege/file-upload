@@ -13,6 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 public class FindFileService {
 
     public byte[] execute(final String filename) throws IOException {
-        return Files.readAllBytes(Paths.get("src\\main\\resources\\images\\" + filename));
+        try {
+            log.info("Buscando arquivo de nome: {}", filename);
+            return Files.readAllBytes(Paths.get("src\\main\\resources\\images\\" + filename));
+        } catch (Exception e) {
+            throw new IOException(String.format("Erro ao buscar o arquivo de nome: %s ", filename));
+        }
     }
 }
